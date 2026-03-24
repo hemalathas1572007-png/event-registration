@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Registered Members</title>
+
+<style>
+body {
+    font-family: Arial;
+    text-align: center;
+}
+
+.bg-image {
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+table {
+    width: 80%;
+    margin: 50px auto;
+    border-collapse: collapse;
+    background: white;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ccc;
+}
+
+th {
+    background: #3949ab;
+    color: white;
+}
+
+button {
+    margin: 20px;
+    padding: 10px;
+    background: red;
+    color: white;
+    border: none;
+}
+</style>
+
+</head>
+
+<body>
+
+<img src="https://wallpapercave.com/wp/wp10715825.jpg" class="bg-image">
+
+<h1 style="color:white;">Registered Members</h1>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>WhatsApp</th>
+<th>Phone</th>
+<th>Event</th>
+</tr>
+</thead>
+
+<tbody id="table"></tbody>
+</table>
+
+<button onclick="clearData()">Clear All</button>
+
+<script>
+window.onload = function () {
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    let table = document.getElementById("table");
+
+    if (users.length === 0) {
+        table.innerHTML = "<tr><td colspan='5'>No Data Found</td></tr>";
+    } else {
+        users.forEach(user => {
+            table.innerHTML += `
+                <tr>
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>${user.whatsapp}</td>
+                    <td>${user.phone}</td>
+                    <td>${user.event}</td>
+                </tr>
+            `;
+        });
+    }
+};
+
+function clearData() {
+    localStorage.removeItem("users");
+    location.reload();
+}
+</script>
+
+</body>
+</html>
